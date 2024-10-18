@@ -1,0 +1,10 @@
+size = 7
+array = [[0] * size for _ in range(size)]
+
+for row in range(size):
+    for col in range(size):
+        if col >= size - row - 1:  
+            array[row][col] = size - col
+
+for row in array:
+    print(" ".join(f"{num:2}" for num in row))

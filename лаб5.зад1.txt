@@ -1,0 +1,11 @@
+n = int(input("Введіть довжину масиву: "))
+array = []
+print("Введіть елементи масиву (дійсні числа):")
+for i in range(n):
+    element = float(input(f"Елемент {i + 1}: "))
+    array.append(element)
+positive_elements = [int(x) for x in array if x > 0]
+if positive_elements:
+    print("Додатні елементи масиву у зворотному порядку:", positive_elements[::-1])
+else:
+    print("Немає додатніх елементів у масиві.")
