@@ -1,0 +1,41 @@
+import math
+
+# Функція для обчислення z = cos^2(α) + cos^4(α)
+def calculate_cosine(alpha):
+    # Обчислити косинус
+    cos_alpha = math.cos(math.radians(alpha))  # Перетворити градуси у радіани
+    z = cos_alpha**2 + cos_alpha**4
+    return z
+
+# Функція для розрахунку необхідної суми грошей на проживання
+def calculate_money_needed(A, B):
+    total_expenses = 0
+    for month in range(1, 11):  # Для 10 місяців
+        total_expenses += B  # Додаєм витрати поточного місяця
+        B *= 1.05  # Збільшуєм витрати на 5% на наступний місяць
+    
+    total_scholarship = A * 10  # Загальна сума стипендії за 10 місяців
+    money_needed = total_expenses - total_scholarship
+    return money_needed
+
+# Обчислення для першої функції 
+try:
+    alpha = float(input("Введіть значення α (в градусах): "))
+    z = calculate_cosine(alpha)
+    print(f"Значення z: {z}")
+except ValueError:
+    print("Будь ласка, введіть коректне число для α.")
+
+# Обчислення для другої функції 
+try:
+    A = float(input("Введіть щомісячну стипендію студента (А грн.): "))
+    B = float(input("Введіть витрати на проживання за місяць (В грн.): "))
+    
+    if B > A:
+        money_needed = calculate_money_needed(A, B)
+        print(f"Сума грошей, яку необхідно попросити в батьків: {money_needed:.2f} грн.")
+    else:
+        print("Витрати на проживання повинні перевищувати стипендію.")
+except ValueError:
+    print("Будь ласка, введіть коректні числа для стипендії та витрат.")
+ 
