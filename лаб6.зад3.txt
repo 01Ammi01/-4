@@ -1,0 +1,20 @@
+def modify_set(A, x):
+    # Якщо x відсутній в A, додати x до B
+    if x not in A:
+        B = A.union({x})  # Додаємо x до множини
+    else:
+        B = A.difference({x})  # Видаляємо x з множини
+
+    return B
+user_input = input("Введіть елементи множини A: ")
+A = set(user_input.split())
+x = input("Введіть символ x: ")
+B = modify_set(A, x)
+# Перевірка на порожність множини B
+if not B:
+    # Якщо множина порожня, перетворимо її в список, а потім знову в множину
+    B_list = list(B)
+    B = set(B_list)
+
+# Виведення результуючої множини B
+print("Результуюча множина B:", B)
