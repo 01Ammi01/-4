@@ -1,0 +1,10 @@
+sentence = input("Введіть речення: ")
+# Розділяєм речення на слова
+words = sentence.split()
+# кількість слів які закінчуються на 'р'
+count = 0
+# Перевірка слів
+for word in words:
+    if word.endswith('р'):
+        count += 1
+print("Кількість слів, які закінчуються на літеру 'р':", count)

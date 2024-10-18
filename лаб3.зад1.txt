@@ -1,0 +1,8 @@
+user_input = input("Введіть слово або рядок: ")
+
+# Перевірка довжини рядка та отримання останніх 5 символів
+if len(user_input) >= 5:
+    last_five_characters = user_input[-5:]
+    print("Останні 5 символів:", last_five_characters)
+else:
+    print("Рядок занадто короткий для зрізу.")
