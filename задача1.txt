@@ -1,0 +1,23 @@
+def calculate_x(a, b):
+    if a < b:
+        x = (a / b) + 1
+    elif a == b:
+        x = -1
+    else:
+        x = (a * b - 5) / a
+    return x
+
+while True:
+    try:
+        a = float(input("Введіть значення a (додатнє число): "))
+        b = float(input("Введіть значення b (додатнє число): "))
+        
+        if a <= 0 or b <= 0:
+            print("Числа a та b мають бути додатніми! На нуль ділити не можна. Спробуйте ще раз.")
+            continue
+        
+        x = calculate_x(a, b)
+        print(f"Значення X: {x}")
+        break
+    except ValueError:
+        print("Будь ласка, введіть коректні числа.")
