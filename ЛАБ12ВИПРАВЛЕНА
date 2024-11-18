@@ -1,0 +1,111 @@
+import json
+
+# Ім'я JSON файлу
+FILE_NAME = "countries.json"
+
+# Початкові дані
+DEFAULT_DATA = [
+    {"name": "Україна", "area": 603628, "population": 41000000, "continent": "Європа"},
+    {"name": "Єгипет", "area": 1002450, "population": 102000000, "continent": "Африка"},
+    {"name": "Індія", "area": 3287263, "population": 1400000000, "continent": "Азія"},
+    {"name": "Бразилія", "area": 8515767, "population": 213000000, "continent": "Південна Америка"},
+    {"name": "Канада", "area": 9984670, "population": 38000000, "continent": "Північна Америка"},
+    {"name": "Китай", "area": 9596961, "population": 1440000000, "continent": "Азія"},
+    {"name": "Нігерія", "area": 923768, "population": 206000000, "continent": "Африка"},
+    {"name": "Німеччина", "area": 357022, "population": 83000000, "continent": "Європа"},
+    {"name": "Японія", "area": 377975, "population": 125000000, "continent": "Азія"},
+    {"name": "Австралія", "area": 7692024, "population": 25600000, "continent": "Австралія"},
+]
+
+# Функція для завантаження даних із JSON файлу
+def load_data():
+    try:
+        with open(FILE_NAME, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return DEFAULT_DATA
+
+# Функція для збереження даних у JSON файл
+def save_data(data):
+    with open(FILE_NAME, "w") as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
+
+# Виведення вмісту JSON файлу
+def display_data():
+    data = load_data()
+    for country in data:
+        print(country)
+
+# Додавання нового запису
+def add_country():
+    data = load_data()
+    name = input("Введіть назву країни: ")
+    area = int(input("Введіть площу країни (км²): "))
+    population = int(input("Введіть населення країни: "))
+    continent = input("Введіть континент: ")
+    data.append({"name": name, "area": area, "population": population, "continent": continent})
+    save_data(data)
+    print("Країну додано!")
+
+# Видалення запису
+def delete_country():
+    data = load_data()
+    name = input("Введіть назву країни, яку потрібно видалити: ")
+    data = [country for country in data if country["name"] != name]
+    save_data(data)
+    print("Країну видалено, якщо вона була в списку.")
+
+# Пошук даних
+def search_country():
+    data = load_data()
+    field = input("Введіть поле для пошуку (name, area, population, continent): ")
+    value = input("Введіть значення для пошуку: ")
+    if field in {"area", "population"}:
+        value = int(value)
+    results = [country for country in data if country[field] == value]
+    if results:
+        print("Результати пошуку:")
+        for country in results:
+            print(country)
+    else:
+        print("Нічого не знайдено.")
+
+# Завдання: знайти країни в Африці або Азії
+def find_countries_in_africa_or_asia():
+    data = load_data()
+    results = [country["name"] for country in data if country["continent"] in {"Африка", "Азія"}]
+    if results:
+        print("Країни в Африці або Азії:", ", ".join(results))
+        with open("africa_asia_countries.json", "w") as file:
+            json.dump(results, file, indent=4, ensure_ascii=False)
+    else:
+        print("Країн в Африці або Азії не знайдено.")
+
+# Головне меню
+def main():
+    while True:
+        print("\nМеню:")
+        print("1. Вивести вміст JSON файлу")
+        print("2. Додати новий запис")
+        print("3. Видалити запис")
+        print("4. Пошук даних")
+        print("5. Знайти країни в Африці або Азії")
+        print("6. Вийти")
+        choice = input("Оберіть дію: ")
+        if choice == "1":
+            display_data()
+        elif choice == "2":
+            add_country()
+        elif choice == "3":
+            delete_country()
+        elif choice == "4":
+            search_country()
+        elif choice == "5":
+            find_countries_in_africa_or_asia()
+        elif choice == "6":
+            break
+        else:
+            print("Неправильний вибір. Спробуйте ще раз.")
+
+if __name__ == "__main__":
+    main()
