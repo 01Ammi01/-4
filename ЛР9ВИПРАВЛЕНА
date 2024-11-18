@@ -1,0 +1,63 @@
+import re
+
+def create_text_file():
+    try:
+        with open('TF7_1.txt', 'w', encoding='utf-8') as f:
+            f.write("ттутт є слоова із подвоєнням\n")
+            f.write("а тут нема подвоєнь\n")
+            f.write("Немає подвоєння у цьому реченні.\n")
+            f.write("А ось тутт є подвоєння.")
+        print("Файл TF7_1.txt створено.")
+    except Exception as e:
+        print(f"Помилка створення файлу TF7_1.txt: {e}")
+
+def find_double_letters():
+    try:
+        with open('TF7_1.txt', 'r', encoding='utf-8') as f:
+            text = f.read()
+    except FileNotFoundError:
+        print("Файл TF7_1.txt не знайдено. Будь ласка, створіть файл перед виконанням цієї операції.")
+        return
+    except Exception as e:
+        print(f"Помилка читання файлу TF7_1.txt: {e}")
+        return
+
+    # Пошук слів із подвоєнням букв
+    words = re.findall(r'\b\w+\b', text)
+    double_letter_words = [word for word in words if re.search(r'(.)\1', word)]
+
+    # Запис результатів у TF7_2.txt
+    try:
+        with open('TF7_2.txt', 'w', encoding='utf-8') as f_out:
+            if double_letter_words:
+                for word in double_letter_words:
+                    f_out.write(word + '\n')
+            else:
+                f_out.write("Немає слів із подвоєнням букв.\n")
+        print("Файл TF7_2.txt створено і заповнено.")
+    except Exception as e:
+        print(f"Помилка запису у файл TF7_2.txt: {e}")
+
+def print_file_content():
+    try:
+        with open('TF7_2.txt', 'r', encoding='utf-8') as f:
+            content = f.readlines()
+    except FileNotFoundError:
+        print("Файл TF7_2.txt не знайдено. Будь ласка, виконайте попередні операції перед читанням.")
+        return
+    except Exception as e:
+        print(f"Помилка читання файлу TF7_2.txt: {e}")
+        return
+
+    # Друк вмісту
+    print("\nВміст файла TF7_2:")
+    for line in content:
+        print(line.strip())
+
+def main():
+    create_text_file()  # Створюємо файл TF7_1
+    find_double_letters()  # Пошук слів із подвоєнням букв і запис у TF7_2
+    print_file_content()  # Читання і друк вмісту TF7_2
+
+if __name__ == "__main__":
+    main()
